@@ -1,0 +1,18 @@
+<svg:svg x="0" y="0">
+    <svg:svg aaNavigation x="0" y="0" [attr.width]="config.sinceConfig.width" height="24" [config]="config.sinceConfig"
+             (fromNavigationShowMonths)="onShowMonths()" (fromNavigationShowYears)="onShowYears()"
+             (fromNavigationPrevYear)="onPrevYear()" (fromNavigationPrevMonth)="onPrevMonth()"
+             (fromNavigationNextMonth)="onNextMonth()" (fromNavigationNextYear)="onNextYear()"></svg:svg>
+    <svg:svg aaCalendar [config]="config.sinceConfig" (fromCalendarDateChanged)="onDateChanged($event)"></svg:svg>
+    <svg:svg aaTools [config]="config.sinceConfig" (fromToolsToday)="onToday()" (fromToolsOptions)="onOptions()"
+             (fromToolsSubmit)="onSubmit()"></svg:svg>
+</svg:svg>
+<svg:svg [attr.x]="config.sinceConfig.width + config.spacing" y="0">
+    <svg:svg aaNavigation x="0" y="0" [attr.width]="config.untilConfig.width" height="24" [config]="config.untilConfig"
+             (fromNavigationShowMonths)="onShowMonths()" (fromNavigationShowYears)="onShowYears()"
+             (fromNavigationPrevYear)="onPrevYear()" (fromNavigationPrevMonth)="onPrevMonth()"
+             (fromNavigationNextMonth)="onNextMonth()" (fromNavigationNextYear)="onNextYear()"></svg:svg>
+    <svg:svg aaCalendar [config]="config.untilConfig" (fromCalendarDateChanged)="onDateChanged($event)"></svg:svg>
+    <svg:svg aaTools [config]="config.untilConfig" (fromToolsToday)="onToday()" (fromToolsOptions)="onOptions()"
+             (fromToolsSubmit)="onSubmit()"></svg:svg>
+</svg:svg>

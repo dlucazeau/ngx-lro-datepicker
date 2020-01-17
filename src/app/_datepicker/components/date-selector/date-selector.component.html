@@ -1,0 +1,7 @@
+<svg:svg x="0" y="0">
+    <svg:svg aaNavigation x="0" y="0" [attr.width]="width" height="24" [config]="config" (fromNavigationShowMonths)="onShowMonths()"
+             (fromNavigationShowYears)="onShowYears()" (fromNavigationPrevYear)="onPrevYear()" (fromNavigationPrevMonth)="onPrevMonth()"
+             (fromNavigationNextMonth)="onNextMonth()" (fromNavigationNextYear)="onNextYear()"></svg:svg>
+    <svg:svg aaCalendar [config]="config" (fromCalendarDateChanged)="onDateChanged($event)"></svg:svg>
+    <svg:svg aaTools [config]="config" (fromToolsToday)="onToday()" (fromToolsOptions)="onOptions()" (fromToolsSubmit)="onSubmit()"></svg:svg>
+</svg:svg>

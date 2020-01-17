@@ -1,0 +1,61 @@
+<svg:svg
+    x="0"
+    y="0"
+    [attr.width]="24 * 7"
+    [attr.height]="24"
+    [style.background]="'red'"
+>
+    <svg:rect
+        [style.fill]="'transparent'"
+        [style.stroke]="'grey'"
+        [style.stroke-width]="'1px'"
+        y="0"
+        x="0"
+        [attr.width]="24 * 7"
+        height="24"
+    ></svg:rect>
+    <svg:svg x="0" y="0" width="24" height="24" (click)="onPrevYear()">
+        <svg:path d="M18,6 V18 L6,12 Z" transform="translate(-3)" />
+        <svg:path d="M18,6 V18 L6,12 Z" transform="translate(3)" />
+    </svg:svg>
+    <svg:svg x="24" y="0" width="24" height="24" (click)="onPrevMonth()">
+        <svg:path d="M18,6 V18 L6,12 Z" />
+    </svg:svg>
+    <svg:svg
+        [attr.x]="config.width - 48"
+        y="0"
+        width="24"
+        height="24"
+        (click)="onNextMonth()"
+    >
+        <svg:path d="M6,6 V18 L18,12 Z" />
+    </svg:svg>
+    <svg:svg
+        [attr.x]="config.width - 24"
+        y="0"
+        width="24"
+        height="24"
+        (click)="onNextYear()"
+    >
+        <svg:path d="M6,6 V18 L18,12 Z" transform="translate(-3)" />
+        <svg:path d="M6,6 V18 L18,12 Z" transform="translate(3)" />
+    </svg:svg>
+    <svg:text
+        x="60"
+        y="50%"
+        dominant-baseline="middle"
+        text-anchor="middle"
+        (click)="onShowMonths()"
+    >
+        {{ displayedMonth }}
+    </svg:text>
+    <svg:text
+        x="100"
+        y="50%"
+        dominant-baseline="middle"
+        text-anchor="middle"
+        (click)="onShowYears()"
+    >
+        {{ displayedYear }}
+    </svg:text>
+</svg:svg>

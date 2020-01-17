@@ -1,0 +1,25 @@
+<div class="container" #container>
+    <svg:svg [attr.width]="width" [attr.height]="height">
+        <svg:svg [attr.width]="width" height="24" [attr.viewBox]="viewBox">
+            <defs>
+                <pattern id="dotted-pattern" x="1" y="1" width="3" height="3" patternUnits="userSpaceOnUse">
+                    <circle class="dotted" cx="1" cy="1" r="1" />
+                </pattern>
+                <pattern id="red-dotted-pattern" x="1" y="1" width="3" height="3" patternUnits="userSpaceOnUse">
+                    <circle class="red-dotted" cx="1" cy="1" r="1" />
+                </pattern>
+                <filter id="shadow">
+                    <feDropShadow dx="0.5" dy="0.5" stdDeviation="3" />
+                </filter>
+            </defs>
+            <svg:g aaDateItem [config]="cfg" [isArrowDown]="showPanel[0]"
+                   (fromDateItemShowCalendar)="onShowCalendar($event)">
+            </svg:g>
+        </svg:svg>
+        <svg:svg aaDateSelector class="calendar" [config]="cfg" [attr.width]="width" height="0" x="0" y="28"
+                 [style.background]="'white'" (fromDateSelectorDateChanged)="onDateChanged($event)"
+                 (fromDateSelectorShowMonths)="onShowMonths()" (fromDateSelectorShowYears)="onShowYears()"
+                 (fromDateSelectorSubmit)="onSubmit()">
+        </svg:svg>
+    </svg:svg>
+</div>

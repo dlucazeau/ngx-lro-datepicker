@@ -1,0 +1,25 @@
+@import "imports";
+
+.badge {
+    display: inline-block;
+    padding: 0.25em 0.4em;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    @each $skin, $name in $skins {
+        @if map-has-key($config, $skin) {
+            .#{$name} &.badge-secondary {
+                color: getSkinColor($skin, color-msg-primary-normal);
+                background-color: getSkinColor($skin, color-msg-primary-light);
+            }
+        }
+    }
+
+    &:empty {
+        display: none;
+    }
+}

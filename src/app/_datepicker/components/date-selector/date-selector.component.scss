@@ -1,0 +1,26 @@
+.calendar {
+    z-index: 100;
+    fill: var(--color-grey-light, "#dfe2e4");
+    .day {
+        cursor: pointer;
+        rect {
+            fill: transparent;
+        }
+    }
+    .curr-month {
+        fill: var(--color-black, "#1d2b37");
+    }
+    .today text {
+        fill: var(--color-primary-normal, "#0057ff");
+    }
+    .today circle {
+        fill: var(--color-primary-light, "#e2eeff");
+    }
+    .uncheckable {
+        cursor: not-allowed;
+        pointer-events: none;
+        rect {
+            fill: var(--color-msg-danger-light, "#ffd2d2");
+        }
+    }
+}
