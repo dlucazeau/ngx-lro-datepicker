@@ -4,6 +4,7 @@ import { gsap } from 'gsap';
 
 import { CalendarConfig } from '../utils/date-config';
 import { RangeConfig } from '../utils/range-config';
+import { isRegExp } from 'util';
 
 @Component({
     selector: 'aa-rangepicker',
@@ -31,7 +32,15 @@ export class RangepickerComponent implements OnInit, AfterViewInit
     ngOnInit ()
     {
         this.myCalendar = this.elementRef.nativeElement.querySelector('.calendar');
+
         this.cfg = RangeConfig.copyConfig(this.config);
+        this.cfg.sinceConfig.isRangeSelector = true;
+        this.cfg.untilConfig.isRangeSelector = true;
+
+        this.cfg.sinceConfig.sinceDate = this.cfg.sinceConfig.inputDate;
+        this.cfg.sinceConfig.untilDate = this.cfg.untilConfig.inputDate;
+        this.cfg.untilConfig.sinceDate = this.cfg.sinceConfig.inputDate;
+        this.cfg.untilConfig.untilDate = this.cfg.untilConfig.inputDate;
 
         if (this.cfg.sinceConfig.inputDate === null)
         {

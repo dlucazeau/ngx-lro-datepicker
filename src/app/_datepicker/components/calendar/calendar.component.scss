@@ -20,6 +20,11 @@ $uncheckableColor: #ffd2d2; // var(--color-msg-danger-light, #ffd2d2);
             fill: var(--color-primary-light, #e2eeff);
         }
     }
+    .isInRange {
+        text {
+            fill: lighten(red, 20%);
+        }
+    }
     .uncheckable {
         cursor: not-allowed;
         pointer-events: none;

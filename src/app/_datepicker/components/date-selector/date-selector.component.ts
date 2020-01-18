@@ -2,8 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { addYears, isAfter, isBefore, addMonths } from 'date-fns';
 
-import { CalendarConfig } from '../../utils/date-config';
-import { VisualDay } from '../../utils/constants';
+import { CalendarConfig } from '../../utils';
 
 // http://svgicons.sparkk.fr/
 @Component({
@@ -27,16 +26,6 @@ export class DateSelectorComponent implements OnInit
 
     ngOnInit ()
     {
-    }
-
-    onSelectDate (vd: VisualDay)
-    {
-        const cfg = CalendarConfig.copyConfig(this.config);
-        cfg.inputDate = vd.date;
-
-        this.config = cfg;
-
-        this.fromDateSelectorDateChanged.emit(vd.date);
     }
 
     onShowMonths ()

@@ -4,7 +4,8 @@
         <svg:svg class="day" [ngClass]="{
                     'curr-month': nums[row][col].currMonth,
                     today: nums[row][col].today,
-                    uncheckable: nums[row][col].uncheckable
+                    uncheckable: nums[row][col].uncheckable,
+                    isInRange: nums[row][col].isInRange
                 }" *ngFor="let col of cols" [attr.x]="24 * col" y="0" width="24" height="24"
                  (click)="onSelectDate(nums[row][col])">
             <svg:rect [style.stroke-width]="'1px'" y="0" x="0" width="24" height="24"

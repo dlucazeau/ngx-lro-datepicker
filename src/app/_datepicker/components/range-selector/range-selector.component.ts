@@ -2,9 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { startOfMonth, startOfWeek, isWeekend, addDays, addYears, getDate, getMonth, isAfter, isBefore, addMonths } from 'date-fns';
 
-import { CalendarConfig } from '../../utils/date-config';
-import { Constants, VisualDay } from '../../utils/constants';
-import { RangeConfig } from '../../utils/range-config';
+import { RangeConfig, VisualDay, Constants, EmitDate } from '../../utils';
 
 // http://svgicons.sparkk.fr/
 
@@ -18,10 +16,10 @@ import { RangeConfig } from '../../utils/range-config';
 export class RangeSelectorComponent implements OnInit
 {
     @Input() config: RangeConfig;
-    @Output() dateChanged: EventEmitter<Date> = new EventEmitter<Date>();
-    @Output() showMonths: EventEmitter<null> = new EventEmitter<null>();
-    @Output() showYears: EventEmitter<null> = new EventEmitter<null>();
-    @Output() submit: EventEmitter<null> = new EventEmitter<null>();
+    @Output() fromRangeSelectorDateChanged: EventEmitter<EmitDate> = new EventEmitter<EmitDate>();
+    @Output() fromRangeSelectorShowMonths: EventEmitter<string> = new EventEmitter<string>();
+    @Output() fromRangeSelectorShowYears: EventEmitter<string> = new EventEmitter<string>();
+    @Output() fromRangeSelectorSubmit: EventEmitter<null> = new EventEmitter<null>();
     public rows: number[];
     public cols: number[];
     public nums: VisualDay[][] = [];
@@ -34,66 +32,69 @@ export class RangeSelectorComponent implements OnInit
 
     ngOnInit ()
     {
-        this.buildCalendar();
     }
 
-    onSelectDate (vd: VisualDay)
+    // onSelectDate (vd: VisualDay)
+    // {
+    //     const cfg = RangeConfig.copyConfig(this.config);
+
+    //     this.config = cfg;
+    //     // this.config.inputSince = vd.date;
+
+    //     this.fromRangeSelectorDateChanged.emit({ sd: vd.date, which: 'since' });
+    // }
+
+    onShowMonths (which: string)
     {
-        const cfg = new RangeConfig();
-
-        Object.assign(cfg, this.config);
-        this.config = cfg;
-        // this.config.inputSince = vd.date;
-        this.buildCalendar();
-
-        this.dateChanged.emit(vd.date);
+        this.fromRangeSelectorShowMonths.emit(which);
     }
-
-    onShowMonths ()
+    onShowYears (which: string)
     {
-        this.showMonths.emit();
-    }
-    onShowYears ()
-    {
-        this.showYears.emit();
+        this.fromRangeSelectorShowYears.emit(which);
     }
 
-    onPrevYear ()
+    onPrevYear (which: string)
     {
-        this.prevDate(addYears(this.config.sinceConfig.inputDate, -1));
+
+        this.prevDate(addYears(this.config[`${which}Config`].inputDate, -1), which);
     }
 
-    onPrevMonth ()
+    onPrevMonth (which: string)
     {
-        this.prevDate(addMonths(this.config.sinceConfig.inputDate, -1));
+        this.prevDate(addMonths(this.config[`${which}Config`].inputDate, -1), which);
     }
 
-    onNextMonth ()
+    onNextMonth (which: string)
     {
-        this.nextDate(addMonths(this.config.sinceConfig.inputDate, 1));
+        this.nextDate(addMonths(this.config[`${which}Config`].inputDate, 1), which);
     }
 
-    onNextYear ()
+    onNextYear (which: string)
     {
-        this.nextDate(addYears(this.config.sinceConfig.inputDate, 1));
+        this.nextDate(addYears(this.config[`${which}Config`].inputDate, 1), which);
     }
 
-    onToday ()
+    onToday (which: string)
     {
-        this.changeDate(new Date());
+        this.changeDate(new Date(), which);
     }
 
-    onOptions ()
+    onOptions (which: string)
     {
         // console.log('onOptions');
     }
 
     onSubmit ()
     {
-        this.submit.emit();
+        this.fromRangeSelectorSubmit.emit();
     }
 
-    private prevDate (newDate: Date)
+    onDateChanged (sd: Date, which: string)
+    {
+        this.fromRangeSelectorDateChanged.emit({ sd, which });
+    }
+
+    private prevDate (newDate: Date, which: string)
     {
         let isAfterMin: boolean = true;
 
@@ -108,7 +109,7 @@ export class RangeSelectorComponent implements OnInit
         }
     }
 
-    private nextDate (newDate: Date)
+    private nextDate (newDate: Date, which: string)
     {
         let isBeforeMax: boolean = true;
 
@@ -125,60 +126,11 @@ export class RangeSelectorComponent implements OnInit
 
     private changeDate (newDate: Date)
     {
-        const cfg = new RangeConfig();
+        const cfg = RangeConfig.copyConfig(this.config);
 
-        Object.assign(cfg, this.config);
         this.config = cfg;
         // this.config.inputSince = newDate;
-        this.buildCalendar();
 
-        this.dateChanged.emit(newDate);
-    }
-
-    private buildCalendar ()
-    {
-        const s = startOfMonth(this.config.sinceConfig.inputDate);
-        const m = getMonth(s);
-        const d = getDate(this.config.sinceConfig.inputDate);
-
-        let startDay: Date = startOfWeek(s, {
-            weekStartsOn: Constants.weekStartsOn
-        });
-        let uncheckable: boolean;
-
-        for (let row = 0; row < 7; row++)
-        {
-            this.nums[row] = [];
-            for (let col = 0; col < 7; col++)
-            {
-                uncheckable = !this.isBetweenMinAndMax(startDay);
-                this.nums[row][col] = {
-                    date: startDay,
-                    day: getDate(startDay),
-                    currMonth: !uncheckable && getMonth(startDay) === m,
-                    today: !uncheckable && getDate(startDay) === d && getMonth(startDay) === m,
-                    uncheckable: uncheckable,
-                    isWeekend: isWeekend(startDay)
-                } as VisualDay;
-                startDay = addDays(startDay, 1);
-            }
-        }
-    }
-
-    private isBetweenMinAndMax (d: Date): boolean
-    {
-        let isAfterMin: boolean = true;
-        if (this.config.minDate !== null)
-        {
-            isAfterMin = isAfter(d, this.config.minDate);
-        }
-
-        let isBeforeMax: boolean = true;
-        if (this.config.maxDate !== null)
-        {
-            isBeforeMax = isBefore(d, this.config.maxDate);
-        }
-
-        return isAfterMin && isBeforeMax;
+        this.fromRangeSelectorDateChanged.emit(newDate);
     }
 }

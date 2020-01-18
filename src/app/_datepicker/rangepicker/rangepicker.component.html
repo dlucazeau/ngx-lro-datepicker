@@ -17,8 +17,9 @@
             </svg:g>
         </svg:svg>
         <svg:svg aaRangeSelector class="calendar" [config]="cfg" [attr.width]="width" height="0" x="0" y="28"
-                 [style.background]="'white'" (dateChanged)="onDateChanged($event)" (showMonths)="onShowMonths()"
-                 (showYears)="onShowYears()" (submit)="onSubmit()">
+                 [style.background]="'white'" (fromRangeSelectorDateChanged)="onDateChanged($event)"
+                 (fromRangeSelectorShowMonths)="onShowMonths()" (fromRangeSelectorShowYears)="onShowYears()"
+                 (fromRangeSelectorSubmit)="onSubmit()">
         </svg:svg>
     </svg:svg>
 </div>

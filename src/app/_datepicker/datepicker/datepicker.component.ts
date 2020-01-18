@@ -32,7 +32,9 @@ export class DatepickerComponent implements OnInit, AfterViewInit
     ngOnInit ()
     {
         this.myCalendar = this.elementRef.nativeElement.querySelector('.calendar');
+
         this.cfg = CalendarConfig.copyConfig(this.config);
+
         if (this.cfg.inputDate === null)
         {
             this.cfg.inputDate = new Date();

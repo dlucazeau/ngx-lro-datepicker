@@ -2,8 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange
 
 import { startOfMonth, startOfWeek, isWeekend, addDays, getDate, getMonth, isAfter, isBefore } from 'date-fns';
 
-import { CalendarConfig } from '../../utils/date-config';
-import { Constants, VisualDay } from '../../utils/constants';
+import { CalendarConfig, VisualDay, Constants } from '../../utils';
 
 @Component({
     selector: '[aaCalendar]',
@@ -37,9 +36,8 @@ export class CalendarComponent implements OnInit, OnChanges
 
     onSelectDate (vd: VisualDay)
     {
-        const cfg = new CalendarConfig();
+        const cfg = CalendarConfig.copyConfig(this.config);
 
-        Object.assign(cfg, this.config);
         this.config = cfg;
         this.config.inputDate = vd.date;
         this.buildCalendar();
@@ -56,26 +54,28 @@ export class CalendarComponent implements OnInit, OnChanges
         let startDay: Date = startOfWeek(s, {
             weekStartsOn: Constants.weekStartsOn
         });
-        let uncheckable: boolean;
+        let checkable: boolean;
 
         for (let row = 0; row < 7; row++)
         {
             this.nums[row] = [];
             for (let col = 0; col < 7; col++)
             {
-                uncheckable = !this.isBetweenMinAndMax(startDay);
+                checkable = this.isBetweenMinAndMax(startDay);
                 this.nums[row][col] = {
                     date: startDay,
                     day: getDate(startDay),
-                    currMonth: !uncheckable && getMonth(startDay) === m,
-                    today: !uncheckable && getDate(startDay) === d && getMonth(startDay) === m,
-                    uncheckable: uncheckable,
-                    isWeekend: isWeekend(startDay)
+                    currMonth: checkable && getMonth(startDay) === m,
+                    today: checkable && getDate(startDay) === d && getMonth(startDay) === m,
+                    uncheckable: !checkable,
+                    isWeekend: isWeekend(startDay),
+                    isInRange: checkable && this.config.isRangeSelector && this.isInRange(startDay)
                 } as VisualDay;
                 startDay = addDays(startDay, 1);
             }
         }
     }
+
     private isBetweenMinAndMax (d: Date): boolean
     {
         let isAfterMin: boolean = true;
@@ -91,5 +91,13 @@ export class CalendarComponent implements OnInit, OnChanges
         }
 
         return isAfterMin && isBeforeMax;
+    }
+
+    private isInRange (d: Date): boolean
+    {
+        const isAfterSince: boolean = isAfter(d, this.config.sinceDate);
+        const isBeforeUntil: boolean = isBefore(d, this.config.untilDate);
+
+        return isAfterSince && isBeforeUntil;
     }
 }
