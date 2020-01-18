@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange
 
 import { startOfMonth, startOfWeek, isWeekend, addDays, getDate, getMonth, isAfter, isBefore } from 'date-fns';
 
-import { CalendarConfig, VisualDay, Constants } from '../../utils';
+import { CalendarConfig, VisualDay, Constants, Utils } from '../../utils';
 
 @Component({
     selector: '[aaCalendar]',
@@ -81,13 +81,13 @@ export class CalendarComponent implements OnInit, OnChanges
         let isAfterMin: boolean = true;
         if (this.config.minDate !== null)
         {
-            isAfterMin = isAfter(d, this.config.minDate);
+            isAfterMin = Utils.isAfter(d, this.config.minDate);
         }
 
         let isBeforeMax: boolean = true;
         if (this.config.maxDate !== null)
         {
-            isBeforeMax = isBefore(d, this.config.maxDate);
+            isBeforeMax = Utils.isBefore(d, this.config.maxDate);
         }
 
         return isAfterMin && isBeforeMax;
@@ -95,8 +95,8 @@ export class CalendarComponent implements OnInit, OnChanges
 
     private isInRange (d: Date): boolean
     {
-        const isAfterSince: boolean = isAfter(d, this.config.sinceDate);
-        const isBeforeUntil: boolean = isBefore(d, this.config.untilDate);
+        const isAfterSince: boolean = Utils.isAfter(d, this.config.sinceDate);
+        const isBeforeUntil: boolean = Utils.isBefore(d, this.config.untilDate);
 
         return isAfterSince && isBeforeUntil;
     }
