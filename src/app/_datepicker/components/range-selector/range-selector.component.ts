@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { startOfMonth, startOfWeek, isWeekend, addDays, addYears, getDate, getMonth, isAfter, isBefore, addMonths } from 'date-fns';
+import { addYears, isAfter, isBefore, addMonths } from 'date-fns';
 
-import { RangeConfig, VisualDay, Constants, EmitDate } from '../../utils';
+import { RangeConfig, VisualDay, SubmitDate, EmitDate } from '../../utils';
 
 // http://svgicons.sparkk.fr/
 
@@ -16,7 +16,7 @@ import { RangeConfig, VisualDay, Constants, EmitDate } from '../../utils';
 export class RangeSelectorComponent implements OnInit
 {
     @Input() config: RangeConfig;
-    @Output() fromRangeSelectorDateChanged: EventEmitter<EmitDate> = new EventEmitter<EmitDate>();
+    @Output() fromRangeSelectorDateChanged: EventEmitter<SubmitDate> = new EventEmitter<SubmitDate>();
     @Output() fromRangeSelectorShowMonths: EventEmitter<string> = new EventEmitter<string>();
     @Output() fromRangeSelectorShowYears: EventEmitter<string> = new EventEmitter<string>();
     @Output() fromRangeSelectorSubmit: EventEmitter<null> = new EventEmitter<null>();
@@ -56,30 +56,30 @@ export class RangeSelectorComponent implements OnInit
     onPrevYear (which: string)
     {
 
-        this.prevDate(addYears(this.config[`${which}Config`].inputDate, -1), which);
+        this.prevDate(addYears(this.config[`${which}Config`].inputDate, -1));
     }
 
     onPrevMonth (which: string)
     {
-        this.prevDate(addMonths(this.config[`${which}Config`].inputDate, -1), which);
+        this.prevDate(addMonths(this.config[`${which}Config`].inputDate, -1));
     }
 
     onNextMonth (which: string)
     {
-        this.nextDate(addMonths(this.config[`${which}Config`].inputDate, 1), which);
+        this.nextDate(addMonths(this.config[`${which}Config`].inputDate, 1));
     }
 
     onNextYear (which: string)
     {
-        this.nextDate(addYears(this.config[`${which}Config`].inputDate, 1), which);
+        this.nextDate(addYears(this.config[`${which}Config`].inputDate, 1));
     }
 
     onToday (which: string)
     {
-        this.changeDate(new Date(), which);
+        // this.changeDate(new Date(), which);
     }
 
-    onOptions (which: string)
+    onOptions ()
     {
         // console.log('onOptions');
     }
@@ -91,10 +91,10 @@ export class RangeSelectorComponent implements OnInit
 
     onDateChanged (sd: Date, which: string)
     {
-        this.fromRangeSelectorDateChanged.emit({ sd, which });
+        // this.fromRangeSelectorDateChanged.emit({ sd, which });
     }
 
-    private prevDate (newDate: Date, which: string)
+    private prevDate (newDate: Date)
     {
         let isAfterMin: boolean = true;
 
@@ -109,7 +109,7 @@ export class RangeSelectorComponent implements OnInit
         }
     }
 
-    private nextDate (newDate: Date, which: string)
+    private nextDate (newDate: Date)
     {
         let isBeforeMax: boolean = true;
 
@@ -131,6 +131,8 @@ export class RangeSelectorComponent implements OnInit
         this.config = cfg;
         // this.config.inputSince = newDate;
 
-        this.fromRangeSelectorDateChanged.emit(newDate);
+        this.fromRangeSelectorDateChanged.emit({
+            sinceDate: this.config.sinceConfig.sinceDate, untilDate: this.config.untilConfig.untilDate
+        });
     }
 }
