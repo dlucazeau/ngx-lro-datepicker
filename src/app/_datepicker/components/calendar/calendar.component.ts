@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 
-import { startOfMonth, startOfWeek, isWeekend, addDays, getDate, getMonth, isAfter, isBefore } from 'date-fns';
+import { startOfMonth, startOfWeek, isWeekend, addDays, getDate, getMonth } from 'date-fns';
 
 import { CalendarConfig, VisualDay, Constants, Utils } from '../../utils';
 
@@ -65,9 +65,9 @@ export class CalendarComponent implements OnInit, OnChanges
                 this.nums[row][col] = {
                     date: startDay,
                     day: getDate(startDay),
-                    currMonth: checkable && getMonth(startDay) === m,
-                    today: checkable && getDate(startDay) === d && getMonth(startDay) === m,
-                    uncheckable: !checkable,
+                    isCurrentMonth: checkable && getMonth(startDay) === m,
+                    isToday: checkable && getDate(startDay) === d && getMonth(startDay) === m,
+                    isCheckable: !checkable,
                     isWeekend: isWeekend(startDay),
                     isInRange: checkable && this.config.isRangeSelector && this.isInRange(startDay)
                 } as VisualDay;

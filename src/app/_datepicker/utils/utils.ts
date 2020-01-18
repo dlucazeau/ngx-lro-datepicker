@@ -1,5 +1,7 @@
 import { isBefore, isAfter, isEqual } from 'date-fns';
 
+import { bool } from '.';
+
 export class Utils
 {
     /**
@@ -8,11 +10,11 @@ export class Utils
      * @param dateLeft : Date à étudier
      * @param dateRight par rapport à celle-ci
      *
-     * @returns true si dateLeft < dateRight false sinon
+     * @returns true si dateLeft < dateRight false sinon, null si dateRight l'est
      */
-    static isBefore (dateLeft: Date, dateRight: Date): boolean
+    static isBefore (dateLeft: Date, dateRight?: Date): bool
     {
-        return isBefore(dateLeft, dateRight);
+        return dateRight == null ? null : isBefore(dateLeft, dateRight);
     }
 
     /**
@@ -21,11 +23,11 @@ export class Utils
      * @param dateLeft : Date à étudier
      * @param dateRight par rapport à celle-ci
      *
-     * @returns true si dateLeft <= dateRight false sinon
+     * @returns true si dateLeft <= dateRight false sinon, null si dateRight l'est
      */
-    static isBeforeOrEqual (dateLeft: Date, dateRight: Date): boolean
+    static isBeforeOrEqual (dateLeft: Date, dateRight?: Date): bool
     {
-        return isBefore(dateLeft, dateRight) || isEqual(dateLeft, dateRight);
+        return dateRight == null ? null : isBefore(dateLeft, dateRight) || isEqual(dateLeft, dateRight);
     }
 
     /**
@@ -34,11 +36,11 @@ export class Utils
      * @param dateLeft : Date à étudier
      * @param dateRight par rapport à celle-ci
      *
-     * @returns true si dateLeft > dateRight false sinon
+     * @returns true si dateLeft > dateRight false sinon, null si dateRight l'est
      */
-    static isAfter (dateLeft: Date, dateRight: Date): boolean
+    static isAfter (dateLeft: Date, dateRight?: Date): bool
     {
-        return isAfter(dateLeft, dateRight);
+        return dateRight == null ? null : isAfter(dateLeft, dateRight);
     }
 
     /**
@@ -47,10 +49,10 @@ export class Utils
      * @param dateLeft : Date à étudier
      * @param dateRight par rapport à celle-ci
      *
-     * @returns true si dateLeft >= dateRight false sinon
+     * @returns true si dateLeft >= dateRight false sinon, null si dateRight l'est
      */
-    static isAfterOrEqual (dateLeft: Date, dateRight: Date): boolean
+    static isAfterOrEqual (dateLeft: Date, dateRight?: Date): bool
     {
-        return isAfter(dateLeft, dateRight) || isEqual(dateLeft, dateRight);
+        return dateRight == null ? null : isAfter(dateLeft, dateRight) || isEqual(dateLeft, dateRight);
     }
 }

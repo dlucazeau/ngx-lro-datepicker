@@ -5,3 +5,5 @@ export { VisualDay } from './visual-day';
 export { EmitDate } from './emit-date';
 export { SubmitDate } from './submit-date';
 export { Utils } from './utils';
+
+export type bool = boolean | null;

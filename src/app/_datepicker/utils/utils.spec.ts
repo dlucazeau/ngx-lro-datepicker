@@ -157,4 +157,56 @@ describe('Utils', () =>
         // Assert
         expect(result).toBe(true);
     });
+
+    it('isBefore d1 < null should return null', async () =>
+    {
+        // Arrange
+        const d1 = new Date(2019, 0, 18);
+        const d2 = null;
+
+        // Act
+        const result = Utils.isBefore(d1, d2);
+
+        // Assert
+        expect(result).toBe(null);
+    });
+
+    it('isBeforeOrEqual d1 <= null should return null', async () =>
+    {
+        // Arrange
+        const d1 = new Date(2019, 0, 18);
+        const d2 = null;
+
+        // Act
+        const result = Utils.isBeforeOrEqual(d1, d2);
+
+        // Assert
+        expect(result).toBe(null);
+    });
+
+    it('isAfter d1 > null should return null', async () =>
+    {
+        // Arrange
+        const d1 = new Date(2019, 0, 18);
+        const d2 = null;
+
+        // Act
+        const result = Utils.isAfter(d1, d2);
+
+        // Assert
+        expect(result).toBe(null);
+    });
+
+    it('isAfterOrEqual d1 >= null should return null', async () =>
+    {
+        // Arrange
+        const d1 = new Date(2019, 0, 18);
+        const d2 = null;
+
+        // Act
+        const result = Utils.isAfterOrEqual(d1, d2);
+
+        // Assert
+        expect(result).toBe(null);
+    });
 });
