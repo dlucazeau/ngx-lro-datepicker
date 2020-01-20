@@ -37,6 +37,7 @@ export class RangeItemComponent implements OnInit, OnChanges
 
     ngOnInit ()
     {
+        this.config = RangeConfig.copyConfig(this.config);
         if (this.config !== undefined)
         {
             this.setRange();

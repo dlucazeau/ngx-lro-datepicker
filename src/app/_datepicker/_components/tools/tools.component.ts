@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { DateConfig } from '../../_utils/date-config';
+import { CalendarConfig } from '../../_utils/calendar-config';
 
 @Component({
     selector: '[aaTools]',
@@ -11,7 +11,7 @@ import { DateConfig } from '../../_utils/date-config';
 })
 export class ToolsComponent implements OnInit
 {
-    @Input() config: DateConfig;
+    @Input() config: CalendarConfig;
     @Output() fromToolsToday: EventEmitter<null> = new EventEmitter<null>();
     @Output() fromToolsOptions: EventEmitter<Date> = new EventEmitter<Date>();
     @Output() fromToolsSubmit: EventEmitter<Date> = new EventEmitter<Date>();

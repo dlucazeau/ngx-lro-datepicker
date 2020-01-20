@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange
 
 import { startOfMonth, startOfWeek, addDays } from 'date-fns';
 
-import { DateConfig, Constants } from '../../_utils';
+import { CalendarConfig, Constants } from '../../_utils';
 import { VisualDay } from '../../_models/visual-day';
 
 @Component({
@@ -14,7 +14,7 @@ import { VisualDay } from '../../_models/visual-day';
 })
 export class CalendarComponent implements OnInit, OnChanges, OnDestroy
 {
-    @Input() config: DateConfig;
+    @Input() config: CalendarConfig;
     @Output() fromCalendarDateChanged: EventEmitter<Date> = new EventEmitter<Date>();
     public rows: number[];
     public cols: number[];
@@ -41,7 +41,7 @@ export class CalendarComponent implements OnInit, OnChanges, OnDestroy
 
     onSelectDate (vd: VisualDay)
     {
-        const cfg = DateConfig.copyConfig(this.config);
+        const cfg = CalendarConfig.copyConfig(this.config);
 
         this.config = cfg;
         this.config.inputDate = vd.date;

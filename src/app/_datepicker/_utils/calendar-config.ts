@@ -2,8 +2,8 @@ import { isAfter } from 'date-fns';
 
 import { Config } from './config';
 import { Utils } from './utils';
-export class DateConfig extends Config
 
+export class CalendarConfig extends Config
 {
     inputDate?: Date = null;
     sinceDate?: Date = null;
@@ -17,16 +17,16 @@ export class DateConfig extends Config
         this.isRangeSelector = false;
     }
 
-    static copyConfig (data: DateConfig): DateConfig
+    static copyConfig (data: CalendarConfig): CalendarConfig
     {
-        const cfg = new DateConfig();
+        const cfg = new CalendarConfig();
 
-        if (!data)
+        if (data)
         {
             Object.assign(cfg, data);
         }
 
-        if (cfg.inputDate === null)
+        if (!cfg.isRangeSelector && cfg.inputDate === null)
         {
             cfg.inputDate = Utils.getToday();
         }

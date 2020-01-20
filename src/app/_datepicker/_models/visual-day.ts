@@ -51,6 +51,10 @@ export class VisualDay
         this.isInputDate = Utils.isInputDate(d, inputDate);
 
         this.isInCurrentMonth = Utils.isInSameMonth(this.date, inputDate);
-        this.isInRange = Utils.isStrictlyBetween(this.date, sinceDate, untilDate);
+        if (sinceDate !== null && untilDate !== null)
+        {
+            this.isInRange = Utils.isStrictlyBetween(this.date, sinceDate, untilDate);
+            this.isInputDate = this.isInputDate || Utils.isInputDate(d, sinceDate) || Utils.isInputDate(d, untilDate);
+        }
     }
 }

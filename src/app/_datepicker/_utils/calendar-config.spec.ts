@@ -1,12 +1,12 @@
-import { DateConfig } from './date-config';
+import { CalendarConfig } from './calendar-config';
 import { Utils } from '.';
 
-describe('DateConfig', () =>
+describe('CalendarConfig', () =>
 {
-    it('ctor - should initialized correctly', async () =>
+    it('ctor - should be correctly initialized', async () =>
     {
         // Arrange && Act
-        const cfg = new DateConfig();
+        const cfg = new CalendarConfig();
 
         // Assert
         expect(cfg.width).toEqual(168);
@@ -18,7 +18,7 @@ describe('DateConfig', () =>
         // Arrange
 
         // Act
-        const cfg: DateConfig = DateConfig.copyConfig(undefined);
+        const cfg: CalendarConfig = CalendarConfig.copyConfig(undefined);
 
         // Assert
         expect(cfg.format).toEqual('MM/dd/yyyy');
@@ -37,10 +37,10 @@ describe('DateConfig', () =>
     {
         // Arrange
         const data = {
-        } as DateConfig;
+        } as CalendarConfig;
 
         // Act
-        const cfg: DateConfig = DateConfig.copyConfig(data);
+        const cfg: CalendarConfig = CalendarConfig.copyConfig(data);
 
         // Assert
         expect(cfg.format).toEqual('MM/dd/yyyy');
@@ -58,17 +58,20 @@ describe('DateConfig', () =>
     it('copyConfig - should ', async () =>
     {
         // Arrange
-        const minDate = new Date(2019, 8, 1);
-        const maxDate = new Date(2020, 1, 29);
+        // ---     min            max    ---
+        // -------- ▼ ------------ ▼ -------
+        // --- 01/01/2019 --- 31/12/2019 ---
+        const minDate = new Date(2019, 0, 1);
+        const maxDate = new Date(2019, 11, 31);
         const data = {
             inputDate: new Date(2019, 11, 11),
             minDate: minDate,
             maxDate: maxDate,
             format: 'MM/dd/yyyy'
-        } as DateConfig;
+        } as CalendarConfig;
 
         // Act
-        const cfg: DateConfig = DateConfig.copyConfig(data);
+        const cfg: CalendarConfig = CalendarConfig.copyConfig(data);
 
         // Assert
         expect(cfg.format).toEqual('MM/dd/yyyy');
@@ -87,10 +90,10 @@ describe('DateConfig', () =>
             minDate: minDate,
             maxDate: maxDate,
             format: 'MM/dd/yyyy'
-        } as DateConfig;
+        } as CalendarConfig;
 
         // Act
-        const cfg: DateConfig = DateConfig.copyConfig(data);
+        const cfg: CalendarConfig = CalendarConfig.copyConfig(data);
 
         // Assert
         expect(cfg.minDate).toEqual(maxDate);

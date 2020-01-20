@@ -1,11 +1,21 @@
-import { DateConfig } from './date-config';
-import { Config } from './config';
+import { CalendarConfig } from './calendar-config';
 
-export class RangeConfig extends Config
+export class RangeConfig extends CalendarConfig
 {
     spacing: number = 4;
-    sinceConfig: DateConfig;
-    untilConfig: DateConfig;
+    sinceConfig: CalendarConfig;
+    untilConfig: CalendarConfig;
+
+    constructor()
+    {
+        super();
+
+        this.isRangeSelector = true;
+        this.sinceConfig = new CalendarConfig();
+        this.sinceConfig.isRangeSelector = true;
+        this.untilConfig = new CalendarConfig();
+        this.untilConfig.isRangeSelector = true;
+    }
 
     static copyConfig (data: RangeConfig): RangeConfig
     {
@@ -15,21 +25,27 @@ export class RangeConfig extends Config
 
         if (!data.sinceConfig)
         {
-            data.sinceConfig = DateConfig.copyConfig(new DateConfig());
+            data.sinceConfig = CalendarConfig.copyConfig(new CalendarConfig());
         }
 
-        cfg.sinceConfig = DateConfig.copyConfig(data.sinceConfig);
-        cfg.sinceConfig.minDate = data.sinceConfig.sinceDate;
-        cfg.sinceConfig.maxDate = data.sinceConfig.untilDate;
+        cfg.sinceConfig = CalendarConfig.copyConfig(data.sinceConfig);
+        cfg.sinceConfig.minDate = cfg.minDate;
+        cfg.sinceConfig.maxDate = cfg.maxDate;
+        cfg.sinceConfig.sinceDate = cfg.sinceDate;
+        cfg.sinceConfig.untilDate = cfg.untilDate;
+        cfg.sinceConfig.inputDate = cfg.sinceDate;
 
-        if (data.untilConfig)
+        if (!data.untilConfig)
         {
-            data.sinceConfig = DateConfig.copyConfig(new DateConfig());
+            data.untilConfig = CalendarConfig.copyConfig(new CalendarConfig());
         }
 
-        cfg.untilConfig = DateConfig.copyConfig(data.untilConfig);
-        cfg.untilConfig.minDate = data.untilConfig.sinceDate;
-        cfg.untilConfig.maxDate = data.untilConfig.untilDate;
+        cfg.untilConfig = CalendarConfig.copyConfig(data.untilConfig);
+        cfg.untilConfig.minDate = cfg.minDate;
+        cfg.untilConfig.maxDate = cfg.maxDate;
+        cfg.untilConfig.sinceDate = cfg.sinceDate;
+        cfg.untilConfig.untilDate = cfg.untilDate;
+        cfg.untilConfig.inputDate = cfg.untilDate;
 
         return cfg;
     }

@@ -33,23 +33,12 @@ export class RangepickerComponent implements OnInit, AfterViewInit, OnDestroy
         this.myCalendar = this.elementRef.nativeElement.querySelector('.calendar');
 
         this.cfg = RangeConfig.copyConfig(this.config);
+
+        this.cfg.isRangeSelector = true;
         this.cfg.sinceConfig.isRangeSelector = true;
         this.cfg.untilConfig.isRangeSelector = true;
 
-        if (this.cfg.sinceConfig.inputDate === null)
-        {
-            this.cfg.sinceConfig.inputDate = Utils.getToday();
-        }
-
-        if (this.cfg.untilConfig.inputDate === null)
-        {
-            this.cfg.untilConfig.inputDate = Utils.getToday();
-        }
-
-        this.cfg.sinceConfig.sinceDate = this.cfg.sinceConfig.inputDate;
-        this.cfg.sinceConfig.untilDate = this.cfg.untilConfig.inputDate;
-        this.cfg.untilConfig.sinceDate = this.cfg.sinceConfig.inputDate;
-        this.cfg.untilConfig.untilDate = this.cfg.untilConfig.inputDate;
+        console.log(this.cfg);
 
         this.adjustDimensions();
     }

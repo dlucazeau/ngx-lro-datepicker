@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ElementRef, HostListener, AfterViewInit, OnDe
 
 import { gsap } from 'gsap';
 
-import { DateConfig } from '../_utils/date-config';
+import { CalendarConfig } from '../_utils/calendar-config';
 import { addDays } from 'date-fns';
 import { Utils } from '../_utils';
 
@@ -15,12 +15,12 @@ import { Utils } from '../_utils';
 })
 export class DatepickerComponent implements OnInit, AfterViewInit, OnDestroy
 {
-    @Input() config: DateConfig;
+    @Input() config: CalendarConfig;
     // @ViewChild('container', { static: true }) container: ElementRef;
     public viewBox: string = '0 0 168 24';
     public width: number = 168;
     public showPanel: boolean[] = [];
-    public cfg: DateConfig;
+    public cfg: CalendarConfig;
     public height: number = 24;
     private myCalendar: HTMLElement;
     private duration: number = 0.33;
@@ -33,7 +33,7 @@ export class DatepickerComponent implements OnInit, AfterViewInit, OnDestroy
     ngOnInit ()
     {
         this.myCalendar = this.elementRef.nativeElement.querySelector('.calendar');
-        this.cfg = DateConfig.copyConfig(this.config);
+        this.cfg = CalendarConfig.copyConfig(this.config);
 
         if (this.cfg.inputDate === null)
         {
@@ -65,7 +65,7 @@ export class DatepickerComponent implements OnInit, AfterViewInit, OnDestroy
 
     onDateChanged (sd: Date)
     {
-        const cfg = DateConfig.copyConfig(this.cfg);
+        const cfg = CalendarConfig.copyConfig(this.cfg);
 
         cfg.inputDate = sd;
         this.cfg = cfg;

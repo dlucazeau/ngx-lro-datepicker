@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitte
 
 import { format } from 'date-fns';
 
-import { DateConfig } from '../../_utils/date-config';
+import { CalendarConfig } from '../../_utils/calendar-config';
 
 @Component({
     selector: '[aaNavigation]',
@@ -13,7 +13,7 @@ import { DateConfig } from '../../_utils/date-config';
 })
 export class NavigationComponent implements OnInit, OnChanges
 {
-    @Input() config: DateConfig;
+    @Input() config: CalendarConfig;
     @Output() fromNavigationShowMonths: EventEmitter<null> = new EventEmitter<null>();
     @Output() fromNavigationShowYears: EventEmitter<null> = new EventEmitter<null>();
     @Output() fromNavigationPrevYear: EventEmitter<null> = new EventEmitter<null>();

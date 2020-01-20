@@ -2,8 +2,7 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { Injectable, ElementRef, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { RangepickerComponent } from './rangepicker.component';
-import { RangeConfig } from '../_utils';
-import { Utils } from 'date-fns';
+import { RangeConfig, Utils } from '../_utils';
 
 // "emitDecoratorMetadata": true
 
@@ -64,22 +63,23 @@ describe('RangepickerComponent', () =>
         expect(component.showPanel[2]).toBe(false);
     });
 
-    // it('ngOnInit() / isRangeSelector should be set to true', async () =>
-    // {
-    //     // Arrange
-    //     component.config = {
-    //         minDate: new Date(2019, 8, 1),
-    //         maxDate: new Date(2020, 1, 29),
-    //         format: 'MM/dd/yyyy'
-    //     } as RangeConfig;
+    it('ngOnInit() / isRangeSelector should be set to true', async () =>
+    {
+        // Arrange
+        component.config = {
+            minDate: new Date(2019, 8, 1),
+            maxDate: new Date(2020, 1, 29),
+            format: 'MM/dd/yyyy'
+        } as RangeConfig;
 
-    //     // Act
-    //     component.ngOnInit();
+        // Act
+        component.ngOnInit();
 
-    //     // Assert
-    //     expect(component.cfg.sinceConfig.isRangeSelector).toBe(true);
-    //     expect(component.cfg.untilConfig.isRangeSelector).toBe(true);
-    // });
+        // Assert
+        expect(component.cfg.isRangeSelector).toBe(true);
+        expect(component.cfg.sinceConfig.isRangeSelector).toBe(true);
+        expect(component.cfg.untilConfig.isRangeSelector).toBe(true);
+    });
 
     // it('ngOnInit() / null inputDates / inputDates should be set to today', async () =>
     // {
@@ -98,21 +98,97 @@ describe('RangepickerComponent', () =>
     //     expect(component.cfg.untilConfig.inputDate).toEqual(Utils.getToday());
     // });
 
+    it('ngOnInit() / null since and until config / inputDates should be set to today', async () =>
+    {
+        // Arrange
+        // ---     min           since          until           max    ---
+        // -------- ▼ ------------ ↓ ------------ ↓ ------------ ▼ -------
+        // --- 01/01/2019 --- .......... --- .......... --- 31/12/2019 ---
+        const today = Utils.getToday();
+
+        component.config = {
+            minDate: new Date(2019, 0, 1),
+            maxDate: new Date(2019, 11, 31),
+            format: 'MM/dd/yyyy'
+        } as RangeConfig;
+
+        // Act
+        component.ngOnInit();
+
+        // Assert
+        expect(component.cfg.sinceConfig.inputDate).toEqual(today);
+        expect(component.cfg.untilConfig.inputDate).toEqual(today);
+    });
+
     it('ngOnInit() / null inputDates / inputDates should be set to today', async () =>
     {
         // Arrange
-        const since = new Date(2019, 4, 1);
-        const until = new Date(2019, 4, 31);
+        // ---     min           since          until           max    ---
+        // -------- ▼ ------------ ↓ ------------ ↓ ------------ ▼ -------
+        // --- 01/01/2019 --- .......... --- .......... --- 31/12/2019 ---
+        const today = Utils.getToday();
+
         component.config = {
             minDate: new Date(2019, 0, 1),
             maxDate: new Date(2019, 11, 31),
             format: 'MM/dd/yyyy',
             sinceConfig: {
-                inputDate: since
+                inputDate: null
             },
             untilConfig: {
-                inputDate: until
+                inputDate: null
             }
+        } as RangeConfig;
+
+        // Act
+        component.ngOnInit();
+
+        // Assert
+        expect(component.cfg.sinceConfig.inputDate).toEqual(today);
+        expect(component.cfg.untilConfig.inputDate).toEqual(today);
+    });
+
+    it('ngOnInit() /  / min and max should be respectively set to since and until from since and until config', async () =>
+    {
+        // Arrange
+        // ---     min           since          until           max    ---
+        // -------- ▼ ------------ ↓ ------------ ↓ ------------ ▼ -------
+        // --- 01/01/2019 --- .......... --- .......... --- 31/12/2019 ---
+        const min = new Date(2019, 0, 1);
+        const max = new Date(2019, 11, 31);
+
+        component.config = {
+            minDate: min,
+            maxDate: max,
+            format: 'MM/dd/yyyy',
+        } as RangeConfig;
+
+        // Act
+        component.ngOnInit();
+
+        // Assert
+        expect(component.cfg.sinceConfig.minDate).toEqual(min);
+        expect(component.cfg.sinceConfig.maxDate).toEqual(max);
+        expect(component.cfg.untilConfig.minDate).toEqual(min);
+        expect(component.cfg.untilConfig.maxDate).toEqual(max);
+    });
+
+    it('ngOnInit() / since & until provided / inputDates should be respectively set to since and until', async () =>
+    {
+        // Arrange
+        // ---     min           since          until           max    ---
+        // -------- ▼ ------------ ↓ ------------ ↓ ------------ ▼ -------
+        // --- 01/01/2019 --- 01/03/2019 --- 31/03/2019 --- 31/12/2019 ---
+        const since = new Date(2019, 2, 1);
+        const until = new Date(2019, 2, 31);
+
+        component.config = {
+            isRangeSelector: true,
+            minDate: new Date(2019, 0, 1),
+            maxDate: new Date(2019, 11, 31),
+            sinceDate: since,
+            untilDate: until,
+            format: 'MM/dd/yyyy',
         } as RangeConfig;
 
         // Act

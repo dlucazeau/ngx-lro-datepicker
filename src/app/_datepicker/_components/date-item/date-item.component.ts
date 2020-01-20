@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange
 
 import { format } from 'date-fns';
 
-import { DateConfig } from '../../_utils/date-config';
+import { CalendarConfig } from '../../_utils/calendar-config';
 import { Utils } from '../../_utils';
 
 @Component({
@@ -14,7 +14,7 @@ import { Utils } from '../../_utils';
 })
 export class DateItemComponent implements OnInit, OnChanges
 {
-    @Input() config: DateConfig;
+    @Input() config: CalendarConfig;
     @Input() isArrowDown: boolean;
     @Output() fromDateItemShowCalendar: EventEmitter<boolean> = new EventEmitter<boolean>();
     public displayedDate: string;

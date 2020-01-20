@@ -1,11 +1,10 @@
 // tslint:disable
 import { TestBed } from '@angular/core/testing';
 
-import { format, Utils.getToday } from 'date-fns';
+import { format } from 'date-fns';
 
 import { DateItemComponent } from './date-item.component';
-import { DateConfig } from '../../_utils';
-
+import { Utils } from '../../_utils';
 
 describe('DateItemComponent', () =>
 {

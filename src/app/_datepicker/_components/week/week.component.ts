@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { startOfMonth, startOfWeek, isWeekend, addDays, addYears, getDate, getMonth, isAfter, isBefore, addMonths, format } from 'date-fns';
 
-import { DateConfig } from '../../_utils/date-config';
+import { CalendarConfig } from '../../_utils/calendar-config';
 import { Constants } from '../../_utils/constants';
 
 @Component({
@@ -14,7 +14,7 @@ import { Constants } from '../../_utils/constants';
 })
 export class WeekComponent implements OnInit
 {
-    @Input() config: DateConfig;
+    @Input() config: CalendarConfig;
     public weekDays: string[] = [];
 
     constructor()

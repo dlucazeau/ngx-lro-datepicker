@@ -2,7 +2,7 @@ import { VisualDay } from './visual-day';
 
 describe('VisualDay', () =>
 {
-    it('ctor / simple calendar / should not be a weekend', async () =>
+    it('ctor / calendar / should not be a weekend', async () =>
     {
         // Arrange
         const d: Date = new Date(2020, 0, 18);
@@ -15,7 +15,7 @@ describe('VisualDay', () =>
         expect(vd.isWeekend).toBe(true);
     });
 
-    it('ctor / simple calendar / should be a weekend', async () =>
+    it('ctor / calendar / should be a weekend', async () =>
     {
         // Arrange
         const d: Date = new Date(2020, 0, 19);
@@ -28,7 +28,7 @@ describe('VisualDay', () =>
         expect(vd.isWeekend).toBe(true);
     });
 
-    it('ctor / simple calendar / should be uncheckable', async () =>
+    it('ctor / calendar / should be uncheckable', async () =>
     {
         // Arrange
         const d: Date = new Date(2019, 11, 31);
@@ -42,7 +42,7 @@ describe('VisualDay', () =>
         expect(vd.isCheckable).toBe(false);
     });
 
-    it('ctor / simple calendar / should be uncheckable', async () =>
+    it('ctor / calendar / should be uncheckable', async () =>
     {
         // Arrange
         const d: Date = new Date(2020, 1, 18);
@@ -56,7 +56,7 @@ describe('VisualDay', () =>
         expect(vd.isCheckable).toBe(false);
     });
 
-    it('ctor / simple calendar / should be checkable', async () =>
+    it('ctor / calendar / should be checkable', async () =>
     {
         // Arrange
         const d: Date = new Date(2020, 0, 18);
@@ -70,7 +70,7 @@ describe('VisualDay', () =>
         expect(vd.isCheckable).toBe(true);
     });
 
-    it('ctor / simple calendar / should be checkable', async () =>
+    it('ctor / calendar / should be checkable', async () =>
     {
         // Arrange
         const d: Date = new Date(2020, 0, 1);
@@ -84,7 +84,7 @@ describe('VisualDay', () =>
         expect(vd.isCheckable).toBe(true);
     });
 
-    it('ctor / simple calendar / should be checkable', async () =>
+    it('ctor / calendar / should be checkable', async () =>
     {
         // Arrange
         const d: Date = new Date(2020, 0, 31);
@@ -134,7 +134,7 @@ describe('VisualDay', () =>
         expect(vd.isInRange).toBe(false);
     });
 
-    it('ctor / simple calendar / isInputDate should be true', async () =>
+    it('ctor / calendar / isInputDate should be true', async () =>
     {
         // Arrange
         const d: Date = new Date(2020, 0, 18);
@@ -147,7 +147,7 @@ describe('VisualDay', () =>
         expect(vd.isInputDate).toBe(true);
     });
 
-    it('ctor / simple calendar / isInputDate should be false', async () =>
+    it('ctor / calendar / isInputDate should be false', async () =>
     {
         // Arrange
         const d: Date = new Date(2020, 0, 17);

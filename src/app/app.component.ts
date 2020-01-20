@@ -17,18 +17,15 @@ export class AppComponent
     };
 
     public configRangepicker = {
-        minDate: new Date(2019, 8, 1),
-        maxDate: new Date(2020, 1, 29),
-        format: 'MM/dd/yyyy'
-        // sinceConfig: {
-        //     inputDate: new Date(2019, 11, 11)
-        // },
-        // untilConfig: {
-        //     inputDate: new Date(2020, 0, 15)
-        // }
+        minDate: new Date(2019, 0, 1),
+        maxDate: new Date(2019, 11, 31),
+        format: 'MM/dd/yyyy',
+        sinceDate: new Date(2019, 0, 7),
+        untilDate: new Date(2019, 1, 14)
     };
 
     constructor()
     {
+        console.log(new Date(2019, 0, 1));
     }
 }

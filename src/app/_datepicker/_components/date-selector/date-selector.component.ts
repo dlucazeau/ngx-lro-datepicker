@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { addYears, isAfter, isBefore, addMonths } from 'date-fns';
 
-import { DateConfig, Utils } from '../../_utils';
+import { CalendarConfig, Utils } from '../../_utils';
 
 // http://svgicons.sparkk.fr/
 @Component({
@@ -14,7 +14,7 @@ import { DateConfig, Utils } from '../../_utils';
 })
 export class DateSelectorComponent implements OnInit
 {
-    @Input() config: DateConfig;
+    @Input() config: CalendarConfig;
     @Output() fromDateSelectorDateChanged: EventEmitter<Date> = new EventEmitter<Date>();
     @Output() fromDateSelectorShowMonths: EventEmitter<null> = new EventEmitter<null>();
     @Output() fromDateSelectorShowYears: EventEmitter<null> = new EventEmitter<null>();
@@ -109,7 +109,7 @@ export class DateSelectorComponent implements OnInit
 
     private changeDate (newDate: Date)
     {
-        const cfg = DateConfig.copyConfig(this.config);
+        const cfg = CalendarConfig.copyConfig(this.config);
 
         cfg.inputDate = newDate;
         this.config = cfg;

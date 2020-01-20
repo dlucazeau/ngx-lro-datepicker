@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { CalendarComponent } from './calendar.component';
-import { DateConfig } from '../../_utils';
+import { CalendarConfig } from '../../_utils';
 import { VisualDay } from '../../_models/visual-day';
 
 describe('CalendarComponent', () =>
@@ -46,12 +46,7 @@ describe('CalendarComponent', () =>
     it('ngOnInit() / buildCalendar should be called', async () =>
     {
         // Arrange
-        component.config = {
-            inputDate: new Date(2020, 0, 11),
-            minDate: new Date(2020, 0, 1),
-            maxDate: new Date(2020, 0, 31),
-            format: 'MM/dd/yyyy'
-        } as DateConfig;
+        component.config = new CalendarConfig();
         component.buildCalendar = jest.fn();
 
         // Act
@@ -64,12 +59,7 @@ describe('CalendarComponent', () =>
     it('ngOnInit() / days should be initialized', async () =>
     {
         // Arrange
-        component.config = {
-            inputDate: new Date(2020, 0, 11),
-            minDate: new Date(2020, 0, 1),
-            maxDate: new Date(2020, 0, 31),
-            format: 'MM/dd/yyyy'
-        } as DateConfig;
+        component.config = new CalendarConfig();
 
         // Act
         component.ngOnInit();
@@ -78,12 +68,17 @@ describe('CalendarComponent', () =>
         expect(component.days.length).toEqual(7);
     });
 
-    // it('should run #ngOnChanges()', async () =>
-    // {
-    //     component.buildCalendar = jest.fn();
-    //     component.ngOnChanges({});
-    //     // expect(component.buildCalendar).toHaveBeenCalled();
-    // });
+    it('ngOnChanges() / called / build calendar should be called', async () =>
+    {
+        // Arrange
+        component.buildCalendar = jest.fn();
+
+        // Act
+        component.ngOnChanges({});
+
+        // Assert
+        expect(component.buildCalendar).toHaveBeenCalled();
+    });
 
     it('onSelectDate() / buildCalendar and emit should be called', async () =>
     {
@@ -93,10 +88,9 @@ describe('CalendarComponent', () =>
             minDate: new Date(2020, 0, 1),
             maxDate: new Date(2020, 0, 31),
             format: 'MM/dd/yyyy'
-        } as DateConfig;
+        } as CalendarConfig;
         const vd = new VisualDay(new Date(2020, 0, 19), component.config.inputDate, component.config.minDate, component.config.maxDate);
         component.buildCalendar = jest.fn();
-        // component.fromCalendarDateChanged = component.fromCalendarDateChanged || {};
         component.fromCalendarDateChanged.emit = jest.fn();
 
         // Act
@@ -106,4 +100,14 @@ describe('CalendarComponent', () =>
         expect(component.buildCalendar).toHaveBeenCalled();
         expect(component.fromCalendarDateChanged.emit).toHaveBeenCalled();
     });
+
+    // it('ngOnInit() / buildCalendar() / some vd should be well', async () =>
+    // {
+    //     // Arrange
+    //     // ---     min           input           max    ---
+    //     // -------- ▼ ------------ ↓ ------------ ▼ -------
+    //     // --- 01/01/2019 --- .......... --- 31/12/2019 ---
+    //     const minDate = new Date()
+
+    // });
 });
