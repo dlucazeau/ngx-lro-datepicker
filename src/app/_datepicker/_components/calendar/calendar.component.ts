@@ -7,7 +7,7 @@ import { VisualDay } from '../../_models/visual-day';
 
 @Component({
     selector: '[aaCalendar]',
-    templateUrl: './calendar.component.html',
+    templateUrl: './calendar.component.svg',
     styleUrls: [
         './calendar.component.scss'
     ]

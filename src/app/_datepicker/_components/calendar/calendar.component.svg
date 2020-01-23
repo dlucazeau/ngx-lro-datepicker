@@ -1,0 +1,22 @@
+<svg aaWeek x="0" y="24" [attr.width]="24 * 7" height="24" [config]="config"></svg>
+<svg class="calendar" [attr.width]="config.width" [attr.height]="rows.length * 24" x="0" y="48">
+    <svg *ngFor="let row of rows" [attr.x]="0" [attr.y]="24 * row" [attr.width]="config.width" [attr.height]="24">
+        <svg class="day" [ngClass]="{
+                    currentMonth: days[row][col].isInCurrentMonth,
+                    uncheckable: !days[row][col].isCheckable,
+                    isInRange: days[row][col].isInRange && days[row][col].isInCurrentMonth,
+                    today: days[row][col].isInputDate
+                }" *ngFor="let col of cols" [attr.x]="24 * col" y="0" width="24" height="24"
+                 (click)="onSelectDate(days[row][col])">
+            <rect [style.stroke-width]="'1px'" y="0" x="0" width="24" height="24" [ngStyle]="{
+                        fill: days[row][col].isWeekend
+                            ? (days[row][col].isCheckable ? 'url(#dotted-pattern)' : 'url(#red-dotted-pattern)')
+                            : ''
+                    }"></rect>
+            <circle r="10" cx="12" cy="12" *ngIf="days[row][col].isInputDate"></circle>
+            <text x="50%" y="50%" dominant-baseline="central" text-anchor="middle">
+                {{ days[row][col].day }}
+            </text>
+        </svg>
+    </svg>
+</svg>
