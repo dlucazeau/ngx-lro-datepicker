@@ -3,10 +3,12 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { DatepickerModule } from './_datepicker/datepicker.module';
+import { RangepickerComponent } from './rangepicker/rangepicker.component';
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        RangepickerComponent
     ],
     imports: [
         BrowserModule,
